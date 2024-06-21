@@ -32,6 +32,8 @@ class LoginPageState extends State<LoginPage> {
                 children: [
                   _titleWidget(),
                   _loginButton(),
+                  _loginButton(),
+                  _registerPageLink(),
                 ],
             ),
           ),
@@ -82,7 +84,7 @@ class LoginPageState extends State<LoginPage> {
             r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"
           ),
         );
-        _result ? null : "Please enter a valid email";
+        return _result ? null : "Please enter a valid email";
       },
     );
   }
@@ -104,7 +106,7 @@ class LoginPageState extends State<LoginPage> {
 
   Widget _loginButton() {
     return MetarialButton(
-      onPressed: () {},
+      onPressed: _loginUser,
       minWidth: _deviceWidth! * 0.70,
       height: _deviceHeight! * 0.06,
       color: Colors.red,
@@ -117,5 +119,24 @@ class LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Widget _registerPageLink() {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'register'),
+      child: const Text("Don't have an account", style: TextStyle(
+          color: Colors.blue,
+          fontSize: 15,
+          fontWeight: FontWeight.w200,
+        ),
+      ),
+    );
+  }
+
+  void _loginUser() {
+    // print(_loginFormKey.currentState!.validate());
+    if(_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
+    }
   }
 }

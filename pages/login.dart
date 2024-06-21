@@ -11,6 +11,9 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
 
   double? _deviceHeight, _deviceWidth;
+  final GlobalKey<FormState>_loginFormKey = GlobalKey<FormState>();
+  String? _email;
+  String? _password; 
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class LoginPageState extends State<LoginPage> {
             child: Center(child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround, 
                 mainAxisSize: MainAxisSize.max, 
-                crossAxisAlignment: crossAxisAlignment.Center,
+                crossAxisAlignment: CrossAxisAlignment.Center,
                 children: [
                   _titleWidget(),
                   _loginButton(),
@@ -44,6 +47,58 @@ class LoginPageState extends State<LoginPage> {
         fontSize: 25,
         fontWeight: FontWeight.w600,
       ),
+    );
+  }
+
+  Widget _loginForm() {
+    return Container(
+      height: _deviceHeight! * 0.20,
+      child: Form(
+        key: _loginFormKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.Center,
+          children: [
+            _emailTextField(),
+            _passwordTextField(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _emailTextField() {
+    return TextFormField(
+      decoration: const InputDecoration(hintText:"Email....."),
+      onsaved: (_value) {
+        setState(() {
+          _email = _value;
+        }); 
+      },
+      validator: (_value) {
+        bool _result = _value!.contains(
+          RegExp(
+            r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"
+          ),
+        );
+        _result ? null : "Please enter a valid email";
+      },
+    );
+  }
+
+  Widget _passwordTextField() {
+    return TextFormField(
+      obscureText: true,
+      decoration: const InputDecoration(hintText:"Password....."),
+      onsaved: (_value) {
+        setState(() {
+          _password = _value;
+        }); 
+      },
+      validator: (_value) => _value!.length > 6 
+        ? null 
+        : "Please enter a password greater than six character",
     );
   }
 

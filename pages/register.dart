@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -12,9 +14,8 @@ class RegisterPageState extends State<RegisterPage> {
 
   double? _deviceHeight, _deviceWidth;
   final GlobalKey<FormState>_registerFormKey = GlobalKey<FormState>();
-  String? _name;
-  String? _email;
-  String? _password; 
+  String? _name, _email, _password;
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _titleWidget(),
+                _profileImageWidget(),
                 _registrationForm(),
                 _registerButton(),
              ],
@@ -70,6 +72,31 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+// For picking file from device, there need to add a package from pub dev named "File picker" and it will be added on 'pubspec.yaml' file
+
+  Widget _profileImageWidget() {
+    var _imageProvider = _image != null ? FileImage(_image!) : const NetworkImage("https://i.pravatar.cc/300");
+    return GestureDetector(
+      onTap: () => {
+        FilePicker.platform.pickFiles(type: FileType.image).then((_result) => {
+          setState(() {
+            _image = File(_result!.files.first.path!);
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHeight! * 0.15,
+        width: _deviceWidth! * 0.15,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: _imageProvider as ImageProvider,
+          ),
+        ),
+      );
+    )
   }
 
   Widget _nameTextField() {
@@ -136,7 +163,7 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   void _registerUser() {
-    if(_registerFormKey.currentState!.validate()) {
+    if(_registerFormKey.currentState!.validate() && _image != null) {
       _registerFormKey.currentState!.save();
     }
   }

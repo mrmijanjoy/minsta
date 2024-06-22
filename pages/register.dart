@@ -6,11 +6,11 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return
+    return _RegisterPageState();
   }
 }
 
-class RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<RegisterPage> {
 
   double? _deviceHeight, _deviceWidth;
   final GlobalKey<FormState>_registerFormKey = GlobalKey<FormState>();

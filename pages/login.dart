@@ -60,7 +60,7 @@ class LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.Center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _emailTextField(),
             _passwordTextField(),

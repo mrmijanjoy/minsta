@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'register': (context) => RegisterPage(),
         'login': (context) => LoginPage(),
+        'home': (context) => HomePage(),
       },
     );
   }
@@ -27,11 +28,11 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Boilerplate'),
+        title: Text('Minsta'),
       ),
       body: Center(
         child: Text(
-          'Welcome to Flutter!',
+          'Welcome to Minsta!',
           style: TextStyle(fontSize: 24),
         ),
       ),

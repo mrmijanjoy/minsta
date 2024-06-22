@@ -33,8 +33,8 @@ class RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _titleWidget(),
-                _registerButton(),
                 _registrationForm(),
+                _registerButton(),
              ],
             ),
           ),
